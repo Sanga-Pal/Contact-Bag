@@ -17,25 +17,8 @@ function AddContact({ addContactHandler }) {
     setEmail("");
   };
 
-  // state= {
-  //     name:"",
-  //     email:"",
-  // };
-
-  // add = (e) => {
-  //     e.preventDefault();
-  //     if (this.state.name==="" ||this.state.email===""){
-  //         alert("All the fields are mandatory!");
-  //         return;
-  //     }
-
-  //     this.props.addContactHandler(this.state);
-  //     this.setState({name: "", email: ""});
-
-  // }
-
   return (
-    <div className="ui main" style={{ marginTop: "4rem" }}>
+    <div className="ui main" style={{ marginTop: "6rem" }}>
       <h2>Add Contact</h2>
 
       <form className="ui form" onSubmit={handleAdd}>

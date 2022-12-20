@@ -19,7 +19,9 @@ const ContactCard = ({ contact, deleteContactHandler }) => {
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
         <img className="ui avatar image" src={user} alt="user" />
         <div className="contant">
-          <div className="header">{name}</div>
+          <div className="header" style={{ fontWeight: "500" }}>
+            {name}
+          </div>
           <div>{email}</div>
         </div>
       </div>
