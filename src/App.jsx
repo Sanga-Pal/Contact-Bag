@@ -4,10 +4,13 @@ import { nanoid } from "nanoid";
 import Header from "./components/Header";
 import AddContact from "./components/AddContact";
 import ContactList from "./components/ContactList";
+import SearchContact from "./components/SearchContact";
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const addContactHandler = (name, email) => {
     const newContacts = [...contacts, { id: nanoid(), name, email }];
@@ -42,6 +45,22 @@ function App() {
     if (retriveContacts) setContacts(retriveContacts);
   }, []);
 
+  const searchHandler = (e) => {
+    const searchText = e.target.value;
+    setSearchTerm(searchText);
+
+    if (searchText.trim() !== "") {
+      const newContactList = contacts.filter((contact) => {
+        return Object.values(contact)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchText.toLowerCase());
+      });
+
+      setSearchResults(newContactList);
+    }
+  };
+
   return (
     <div className="ui container">
       <Header />
@@ -49,11 +68,17 @@ function App() {
         <Route
           path="/"
           element={
-            <ContactList
-              contacts={contacts}
-              deleteContactHandler={deleteContactHandler}
-              updateContactHandler={updateContactHandler}
-            />
+            <>
+              <SearchContact
+                searchTerm={searchTerm}
+                onSearchChange={searchHandler}
+              />
+              <ContactList
+                contacts={searchTerm.trim() === "" ? contacts : searchResults}
+                deleteContactHandler={deleteContactHandler}
+                updateContactHandler={updateContactHandler}
+              />
+            </>
           }
         />
         <Route

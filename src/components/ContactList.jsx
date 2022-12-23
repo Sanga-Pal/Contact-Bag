@@ -35,7 +35,7 @@ const ContactList = ({
       <div
         className="ui celled list"
         ref={parent}
-        style={{ marginTop: "10rem" }}
+        style={{ paddingBottom: "2rem" }}
       >
         {contacts.map((contact) => {
           return (
