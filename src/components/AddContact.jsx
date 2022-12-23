@@ -18,7 +18,7 @@ function AddContact({ addContactHandler }) {
   };
 
   return (
-    <div className="ui main" style={{ marginTop: "6rem" }}>
+    <div className="ui main" style={{ marginTop: "10rem" }}>
       <h2>Add Contact</h2>
 
       <form className="ui form" onSubmit={handleAdd}>

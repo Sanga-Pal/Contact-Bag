@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { nanoid } from "nanoid";
 import Header from "./components/Header";
 import AddContact from "./components/AddContact";
@@ -31,11 +32,26 @@ function App() {
   return (
     <div className="ui container">
       <Header />
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ContactList
+              contacts={contacts}
+              deleteContactHandler={deleteContactHandler}
+            />
+          }
+        />
+        <Route
+          path="/add"
+          element={<AddContact addContactHandler={addContactHandler} />}
+        />
+
+        {/* <AddContact addContactHandler={addContactHandler} /> */}
+        {/* <ContactList
         contacts={contacts}
-        deleteContactHandler={deleteContactHandler}
-      />
+        deleteContactHandler={deleteContactHandler}/> */}
+      </Routes>
     </div>
   );
 }
