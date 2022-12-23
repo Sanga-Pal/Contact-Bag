@@ -10,7 +10,6 @@ function App() {
   const [contacts, setContacts] = useState([]);
 
   const addContactHandler = (name, email) => {
-    console.log(name, email);
     const newContacts = [...contacts, { id: nanoid(), name, email }];
     setContacts(newContacts);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContacts));
@@ -18,14 +17,28 @@ function App() {
 
   const deleteContactHandler = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
-    console.log(newContacts);
+    setContacts(newContacts);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContacts));
+  };
+
+  const updateContactHandler = (updatedContact) => {
+    // const newContacts = contacts.map((contact) => {
+    //   if (contact.id === updatedContact.id) {
+    //     return updatedContact;
+    //   }
+    //   return contact;
+    // });
+    const updateIndex = contacts.findIndex(
+      (contact) => contact.id === updatedContact.id
+    );
+    const newContacts = [...contacts];
+    newContacts[updateIndex] = updatedContact;
     setContacts(newContacts);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContacts));
   };
 
   useEffect(() => {
     const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    console.log(retriveContacts);
     if (retriveContacts) setContacts(retriveContacts);
   }, []);
 
@@ -39,6 +52,7 @@ function App() {
             <ContactList
               contacts={contacts}
               deleteContactHandler={deleteContactHandler}
+              updateContactHandler={updateContactHandler}
             />
           }
         />
